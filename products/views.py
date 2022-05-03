@@ -28,4 +28,11 @@ def update_product(request, id):
 
     return render(request, 'products-form.html', {'form': form, 'product': product})
 
+def delete_product(request, id):
+    product = Product.objects.get(id=id)
 
+    if request.method == 'POST':
+        product.delete()
+        return redirect('list_products')
+
+    return render(request, 'prod-delete-confirm.html', {'product': product})
